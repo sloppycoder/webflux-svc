@@ -1,0 +1,8 @@
+srping:
+  application:
+    name: webflux-svc
+
+server:
+  port: 8080
+
+management.endpoints.web.exposure.include: "*"
