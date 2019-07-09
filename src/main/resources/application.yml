@@ -1,8 +1,7 @@
-srping:
-  application:
-    name: webflux-svc
-
-server:
-  port: 8080
-
+spring:
+  sleuth:
+    baggage-keys:
+      - api-context
+    propagation-keys:
+      - foo
 management.endpoints.web.exposure.include: "*"

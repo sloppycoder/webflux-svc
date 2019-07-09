@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -23,5 +24,10 @@ public class WebfluxSvcApplication {
 				.GET("/transactions/{id}", accept(MediaType.APPLICATION_JSON), handler::findOne)
 				.GET("/transactions", accept(MediaType.APPLICATION_JSON), handler::findAll)
 				.build();
+	}
+
+	@Bean
+	public WebClient webClient() {
+		return WebClient.create();
 	}
 }
