@@ -100,10 +100,19 @@ public class WebfluxSvcApplicationTests {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-                        .withBody("{ id:100 }")));
+                        .withBody("{ \"id\":100 }")));
 
         Response response = client.newCall(request).execute();
         Assert.assertTrue(response.isSuccessful());
+
+        // without this delay the verification steps will fail
+        // perhaps because the webclient is async and the verify is reached before
+        // the request is complete?
+        try {
+            Thread.sleep(50L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // spring.sleuth.baggage-keys
         verify(getRequestedFor(urlMatching("/*"))
