@@ -17,18 +17,22 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class TransactionHandler {
 
     TransactionService transactionService;
+    ContextHolder contextHolder;
 
-    public TransactionHandler(TransactionService transactionService) {
+    public TransactionHandler(TransactionService transactionService, ContextHolder contextHolder) {
         this.transactionService = transactionService;
+        this.contextHolder = contextHolder;
     }
 
     public Mono<ServerResponse> findOne(ServerRequest request) {
 
+        contextHolder.storeContext(request);
+
         String id = request.pathVariable("id");
-        log.info("findOne({})", id);
+        log.info("findOne({}", id);
 
         return transactionService.findById(Long.valueOf(id))
-                .flatMap( t -> ok().body(BodyInserters.fromObject(t)))
+                .flatMap(t -> ok().body(BodyInserters.fromObject(t)))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
@@ -40,5 +44,3 @@ public class TransactionHandler {
                 .body(transactionService.getAll(), Transaction.class);
     }
 }
-
-

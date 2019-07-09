@@ -1,4 +1,4 @@
-# Project to illustrate technique to build an API service endpoint using Spring Boot 2.x
+## Project to illustrate technique to build an API service endpoint using Spring Boot 2.x
 
 ## Topics
 	* build docker container image use Google Jib plugin
